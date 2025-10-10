@@ -63,8 +63,12 @@ public:
 	}
 
 	template<typename T, typename Fn>
-	void Alloc(Fn& fn)
+	[[nodiscard]] bool Alloc(Fn& fn)
 	{
+		if (!created) {
+			return false;
+		}
+
 		void* codeBuf = g_localTrampoline.StartAlloc();
 		T code(codeBuf);
 		g_localTrampoline.EndAlloc(code.getCurr());
@@ -72,6 +76,8 @@ public:
 		PrintSpaceLeft();
 
 		fn = (decltype(fn))codeBuf;
+		
+		return true;
 	}
 
 private:
@@ -80,7 +86,7 @@ private:
 	~Trampoline() noexcept = default;
 
 	void* g_moduleHandle{ nullptr };
-	std::size_t len{ 65536 };
+	std::size_t len{ 64 };
 	bool created{};
 };
 

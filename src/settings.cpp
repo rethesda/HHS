@@ -33,7 +33,7 @@ namespace Settings {
 
 		if (!vStr.empty()) {
 
-			sort(vStr);
+			std::sort(vStr);
 			vStr.erase(unique(vStr), vStr.end());
 		}
 	}

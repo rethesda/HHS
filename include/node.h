@@ -85,21 +85,23 @@ namespace Node {
 		PairValue scale;
 	};
 
-	class Transform : 
+	class Transform  : 
 		public util::NoCopyable,
 		public util::NoMoveable,
 		public util::NoPointer {
 
 	public:
 
-		Transform() noexcept = default;
-		~Transform() noexcept = default;
-
 		Transform(Actor* actor) noexcept
 			: act{ actor } {}
 
 		Transform(Actor* actor, bool firstPerson = false) noexcept
 			: act{ actor }, frstPerson{ firstPerson } {}
+
+		Transform(bool firstPerson = false) noexcept
+			: frstPerson{ firstPerson } {}
+
+		~Transform() noexcept = default;
 
 		[[nodiscard]] float GetTransform(const char* node, Flags flags) noexcept;	
 		[[nodiscard]] std::int32_t SetTransform(const char* node, NodeValues& values, float height) noexcept;

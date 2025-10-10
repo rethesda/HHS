@@ -48,7 +48,7 @@ namespace Camera {
 		Player() noexcept = default;
 		~Player() noexcept = default;
 
-		Node::Transform Camera1st;
+		Node::Transform camera1stPerson{ true };
 
 		bool isCameraNodeAnimations{};
 

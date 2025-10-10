@@ -340,9 +340,9 @@ namespace Aaf {
 			}
 		};
 
-		Trampoline::GetSingleton().Alloc<SendCustomEvent_Code>(SendCustomEvent_Original);
+		bool allocated = Trampoline::GetSingleton().Alloc<SendCustomEvent_Code>(SendCustomEvent_Original);
 
-		if (g_branchTrampoline.Write5Branch(SendCustomEvent_Internal.GetUIntPtr(), (uintptr_t)CustomEvent)) {
+		if (allocated && g_branchTrampoline.Write5Branch(SendCustomEvent_Internal.GetUIntPtr(), (uintptr_t)CustomEvent)) {
 
 			_DMESSAGE("Code injected successfully!");
 

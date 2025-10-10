@@ -581,9 +581,9 @@ namespace Events {
 			}
 		};
 
-		Trampoline::GetSingleton().Alloc<AnimationGraphEvent_Code>(o_ActorMediator_ProcessEvent);
+		bool allocated = Trampoline::GetSingleton().Alloc<AnimationGraphEvent_Code>(o_ActorMediator_ProcessEvent);
 
-		if (g_branchTrampoline.Write5Branch(reloc_ActorMediator_ProcessEvent.GetUIntPtr(), (uintptr_t)ProcessEvent)) {
+		if (allocated && g_branchTrampoline.Write5Branch(reloc_ActorMediator_ProcessEvent.GetUIntPtr(), (uintptr_t)ProcessEvent)) {
 
 			_DMESSAGE("Animation Graph Event registered successfully!");
 		}	

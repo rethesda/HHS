@@ -77,6 +77,8 @@ namespace f4se {
 
 			scaleform->Register(Version::ShortName.data(), Scaleform::Register);
 
+			Trampoline::GetSingleton().Create();
+
 			return true;
 		}
 
@@ -175,8 +177,6 @@ namespace f4se {
 		switch (msg->type) {
 
 		case F4SEMessagingInterface::kMessage_GameLoaded:
-
-			Trampoline::GetSingleton().Create();
 
 			Settings::Ini::GetSingleton().ReadAllSettings();
 

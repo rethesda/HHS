@@ -57,9 +57,9 @@ namespace Camera {
 			}
 		};
 
-		Trampoline::GetSingleton().Alloc<SetINIFloat_Code>(o_SetINIFloat);
+		bool allocated = Trampoline::GetSingleton().Alloc<SetINIFloat_Code>(o_SetINIFloat);
 
-		if (g_branchTrampoline.Write5Branch(SetINIFloat_Internal.GetUIntPtr(), (std::uintptr_t)SetIniFloat)) {
+		if (allocated && g_branchTrampoline.Write5Branch(SetINIFloat_Internal.GetUIntPtr(), (std::uintptr_t)SetIniFloat)) {
 
 			_DMESSAGE("Camera hook set successfully.");
 
@@ -74,8 +74,8 @@ namespace Camera {
 	{
 		_DMESSAGE("Initializing player camera...");
 
-		Camera1st.SetActor(*g_player);
-		Camera1st.SetFirstPerson(true);
+		camera1stPerson.SetActor(*g_player);
+		//Camera1st.SetFirstPerson(true);
 
 		Get3rdCameraHeight();
 
@@ -157,11 +157,11 @@ namespace Camera {
 
 		if (h1st != ZeroValue) {
 
-			Camera1st.SetTransform(ComOverride, Node::Flags::PosZ, h1st);
+			camera1stPerson.SetTransform(ComOverride, Node::Flags::PosZ, h1st);
 		}
 		else {
 
-			Camera1st.ResetTransform(ComOverride, Node::Flags::PosZ);
+			camera1stPerson.ResetTransform(ComOverride, Node::Flags::PosZ);
 		}
 
 		for (const auto& camSetting : cam3rdSettings) {
